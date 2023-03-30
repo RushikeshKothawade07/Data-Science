@@ -1,1 +1,15 @@
 POWER BI Tutorials
+
+BI Tool which will help you to analyze, clean data and convert data into  visual format.
+Collection of Components: 
+1. Power Query -> cleaning data
+2. Power Pivot -> Data modelling-> create relationship between them
+3. Power View -> Visualization -> More than 250+ charts
+4. Power Service -> Share report with different people, users can communicate via that reports
+
+Why Power BI?
+1. Trending from last 5 years
+2. Maximum Features (1200 diff functions)
+3. Cost is low
+4. Data Connectivity
+5. Recognized by Gartner Company
