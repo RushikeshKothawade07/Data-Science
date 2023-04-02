@@ -10,4 +10,4 @@ DataSet Link : https://drive.google.com/drive/folders/1rChbtmo6UcVWeF0OcVS7U5mQP
 FinApp Dashboard : 
 
 
-![FinApp DashBoard-1](https://user-images.githubusercontent.com/97045515/229347989-a1ebcba5-e575-462a-90f4-4c67aca2b97d.png)
+![FinApp DashBoard (1)-1](https://user-images.githubusercontent.com/97045515/229366652-85d07df1-8239-4bb2-8582-10afb57dc012.png)
