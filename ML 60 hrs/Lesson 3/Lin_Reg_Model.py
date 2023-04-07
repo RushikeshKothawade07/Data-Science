@@ -46,4 +46,4 @@ class Linear_Regression():
 
   def predict(self, X):
 
-    return X.dot(self.w) + self.b
+    return X.dot(self.w) + self.b 
