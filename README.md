@@ -1,11 +1,21 @@
 The Ultimate Guide for Data Science is here!
+Scikit-learn Estimator CheatSheet
+https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
+
+![image](https://user-images.githubusercontent.com/97045515/231350005-fcb36045-2eb8-4421-8c96-392dacc25a1b.png)
+
+
 
 This repository contains all the modules required for getting started with the Data Science Field.
 Right from python basics to building real world ML models, it accumulates everything!!
 
+
 #onwards_and_upwards
 
 DataSet Link : https://drive.google.com/drive/folders/1rChbtmo6UcVWeF0OcVS7U5mQPKJ4I1QF?usp=share_link
+
+Mini Projects : 
+Link for 20+ Mini Projects on Different Classification and Regression problems : https://github.com/RushikeshKothawade07/Data-Science/tree/main/Mini%20Projects
 
 FinApp Dashboard : 
 
