@@ -13,7 +13,7 @@ Right from python basics to building real world ML models, it accumulates everyt
 #onwards_and_upwards
 
 DataSet Link : https://drive.google.com/drive/folders/1rChbtmo6UcVWeF0OcVS7U5mQPKJ4I1QF?usp=share_link
-
+ML Projects : https://drive.google.com/drive/folders/17aX5iETJkvmb7pCL9ybkQ3O26fJSRqv-?usp=share_link
 Mini Projects : 
 Link for 20+ Mini Projects on Different Classification and Regression problems : https://github.com/RushikeshKothawade07/Data-Science/tree/main/Mini%20Projects
 
