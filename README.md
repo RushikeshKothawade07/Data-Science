@@ -1,4 +1,8 @@
 The Ultimate Guide for Data Science is here!
+
+**JOINS IN SQL FORMULAS :) **<br>
+![image](https://user-images.githubusercontent.com/97045515/233816519-46cd9509-0cec-4705-9907-229819944035.png)<br>
+
 Scikit-learn Estimator CheatSheet
 https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html
 
