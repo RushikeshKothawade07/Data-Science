@@ -1,0 +1,237 @@
+-- 1. Demographic Insights (examples)
+-- a. Who prefers energy drink more? (male/female/non-binary?)
+
+SELECT * from dim_repondents
+SELECT Gender, COUNT(gender)
+FROM dim_repondents
+GROUP BY Gender
+ORDER BY 2 DESC
+
+-- Energy drinks are more popular among males, followed by females and non-binary population
+
+-- b. Which age group prefers energy drinks more?
+SELECT age, COUNT(age)
+FROM dim_repondents
+GROUP BY age
+ORDER BY 2 DESC
+
+-- 19-45 has the highest customer base and it is important to target this segment more effectively
+
+-- c. Which type of marketing reaches the most Youth (15-30)?
+
+SELECT * from dim_repondents
+
+
+SELECT Marketing_channels, COUNT(*) AS Reach_Count
+FROM fact_survey_responses AS fsr
+JOIN dim_repondents AS dr ON fsr.Respondent_ID = dr.Respondent_ID
+WHERE dr.age IN ('15-18', '19-30')
+GROUP BY Marketing_channels
+ORDER BY Reach_Count DESC;
+
+-- Online ads appear to be the most effective marketing channel for reaching the youth aged 15-30, 
+-- followed by TV commercials. However, utilizing a combination of marketing channels, 
+-- including outdoor billboards, other creative channels, and potentially influencer marketing, 
+-- can help maximize the reach and engagement with the youth demographic. 
+-- Print media may have a comparatively lower reach among the youth audience and might require 
+-- additional strategies to effectively target this demographic.
+
+
+
+-- 2. Consumer Preferences:
+-- a. What are the preferred ingredients of energy drinks among respondents?
+SELECT * from fact_survey_responses
+SELECT ingredients_expected, COUNT(ingredients_expected)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- People like more caffine products followd by vitamins and sugar
+-- Hence more caffine based products should be made
+
+-- b. What packaging preferences do respondents have for energy drinks?
+SELECT packaging_preference, COUNT(packaging_preference)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Consumers like to have drinks in compact and portable cans because they are handy, convinient and look trendy.
+
+-- 3. Competition Analysis:
+-- a. Who are the current market leaders?
+SELECT current_brands, COUNT(current_brands)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Cola-Coka and Bepsi reign the market followed by Gangster, Blue Bull and others
+
+-- b. What are the primary reasons consumers prefer those brands over ours?
+SELECT reasons_for_choosing_brands, COUNT(reasons_for_choosing_brands)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Clearly, consumers prefer brands which are reputed. 
+-- Also the taste and flavour along with sufficient availibility in the market 
+-- are the main reasons for people choosing these brands
+
+-- (And if we want to see the reasons for preferring each respective brand)
+WITH x AS
+(
+	SELECT current_brands, COUNT(current_brands)
+	FROM fact_survey_responses
+	GROUP BY 1
+	ORDER BY 2 DESC 
+	LIMIT 3
+)
+SELECT x.current_brands, f.reasons_for_choosing_brands, COUNT(reasons_for_choosing_brands) as brand_count
+FROM fact_survey_responses as f
+JOIN x ON x.current_brands = f.current_brands
+GROUP BY 1, 2
+ORDER BY 3 DESC
+
+-- 4. Marketing Channels and Brand Awareness:
+-- a. Which marketing channel can be used to reach more customers?
+SELECT * from fact_survey_responses
+
+SELECT marketing_channels, COUNT(marketing_channels)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Online Ads are the most effective way to reach a customer followed by TV commericals. So CodeX should spend more in running online campaigns
+
+-- b. How effective are different marketing strategies and channels in reaching our 
+-- customers?
+SELECT * FROM fact_survey_responses
+SELECT Marketing_channels,
+    COUNT(*) AS Customer_Reach,
+    SUM(CASE WHEN Heard_before = 'Yes' THEN 1 ELSE 0 END) AS Heard_Before_Count,
+    SUM(CASE WHEN Tried_before = 'Yes' THEN 1 ELSE 0 END) AS Tried_Before_Count,
+    SUM(CASE WHEN Interest_in_natural_or_organic = 'Yes' THEN 1 ELSE 0 END) AS Natural_Organic_Interest_Count
+FROM fact_survey_responses AS fsr
+JOIN dim_repondents AS dr ON fsr.Respondent_ID = dr.Respondent_ID
+-- Add more JOIN statements if needed to join with other relevant tables
+GROUP BY Marketing_channels
+ORDER BY  Customer_Reach DESC;
+
+
+
+
+-- 5. Brand Penetration:
+-- a. What do people think about our brand? (overall rating)
+SELECT * FROM fact_survey_responses
+SELECT current_brands, brand_perception, COUNT(brand_perception), ROUND(100 * COUNT(brand_perception) / SUM(COUNT(brand_perception)) OVER (), 2) AS rating
+FROM fact_survey_responses
+WHERE current_brands = 'CodeX'
+GROUP BY current_brands, brand_perception
+ORDER BY 3 DESC;
+
+-- There are  mostly neutral reviews, so CodeX should Review the brand
+-- messaging and positioning to ensure it aligns with customer expectations and addresses the identified issues. 
+
+-- b. Which cities do we need to focus more on?
+
+SELECT  dc.City,COUNT(*) AS Respondent_Count
+FROM dim_cities AS dc
+JOIN dim_repondents AS dr ON dc.City_ID = dr.City_ID
+GROUP BY dc.City
+ORDER BY Respondent_Count DESC;
+
+
+-- 1. Bangalore, Hyderabad, and Mumbai have the highest number of respondents, indicating a potentially larger 
+-- customer base in these cities. Focusing on these cities can be beneficial for expanding the brand's presence
+-- and targeting a larger audience.
+
+-- 2. Chennai, Pune, and Kolkata have a moderate number of respondents, suggesting a decent level of brand 
+-- awareness and customer engagement in these cities. It may be worth considering additional efforts to 
+-- strengthen the brand's position in these locations.
+
+-- 3. Ahmedabad, Delhi, and Jaipur have a relatively lower number of respondents. 
+-- However, these cities still present opportunities for growth and could be targeted to increase brand 
+-- awareness and expand the customer base.
+
+-- Based on these findings, it is recommended to prioritize resources and marketing efforts in cities like 
+-- Bangalore, Hyderabad, and Mumbai, which have a higher concentration of respondents. 
+-- However, it is essential to also consider the specific market dynamics and competition in each city 
+-- to tailor the strategies accordingly. Additionally, further analysis and market research can help 
+-- identify specific target audience preferences and preferences in each city, allowing for more targeted 
+-- and effective marketing campaigns.
+
+
+-- 6. Purchase Behavior:
+-- a. Where do respondents prefer to purchase energy drinks?
+
+SELECT purchase_location, COUNT(purchase_location)
+FROM fact_survey_responses
+GROUP BY purchase_location
+ORDER BY 2 DESC
+
+-- The consumers prefer to purchase energy drinks at supermarkets and online retail stores
+
+-- b. What are the typical consumption situations for energy drinks among respondents?
+
+
+SELECT typical_consumption_situations, COUNT(typical_consumption_situations)
+FROM fact_survey_responses
+GROUP BY typical_consumption_situations
+ORDER BY 2 DESC
+
+-- The typical consumption situations are sports/exercise and studying/working late respondents
+
+-- c. What factors influence respondents' purchase decisions, such as price range and 
+-- limited edition packaging?
+
+SELECT price_range, COUNT(respondent_id)
+FROM fact_survey_responses
+GROUP BY price_range
+ORDER BY 2 DESC
+
+-- we can infer that a significant number of customers fall within the price range categories of "50-99" and "100-150"
+-- It is also exhibiting the pricing method where customers genrally buy within a specific price range
+
+
+-- Factor : Limited_edition_packaging
+SELECT limited_edition_packaging, COUNT(respondent_id)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Factor : health_concerns
+SELECT health_concerns, COUNT(respondent_id)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Factor : general_perception
+SELECT general_perception, COUNT(respondent_id)
+FROM fact_survey_responses
+GROUP BY 1
+ORDER BY 2 DESC
+
+
+
+
+-- 7. Product Development
+-- a. Which area of business should we focus more on our product development? 
+-- (Branding/taste/availability)
+
+SELECT reasons_for_choosing_brands, COUNT(respondent_id)
+FROM fact_survey_responses
+WHERE current_brands = 'CodeX'
+GROUP BY 1
+ORDER BY 2 DESC
+
+-- Brand Reputation and availability are major factors attracting the customer base. CodeX should focus more on taste and effectiveness.
+
+
+
+
+
+
+
+
+
+
+
