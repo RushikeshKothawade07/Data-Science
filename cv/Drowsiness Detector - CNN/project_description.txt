@@ -1,0 +1,17 @@
+The drowsiness detection project utilizes computer vision techniques and deep learning to detect drowsiness in individuals using a webcam.
+
+Here's a simplified explanation of the project:
+
+1. Drowsiness Detection: The goal of the project is to detect drowsiness in individuals in real-time. Drowsiness can be an indicator of fatigue or sleepiness, which can be dangerous, especially while driving or operating machinery.
+
+2. Webcam Feed: The project uses OpenCV, an open-source computer vision library, to access the webcam and capture a live video feed. The webcam continuously captures frames (images) of the person's face.
+
+3. Eye Detection: Using Haar cascade classifiers, the project detects the presence and location of faces in each frame. Once a face is detected, it further identifies the eyes by applying another Haar cascade classifier specific to eyes. This allows the project to isolate the region of interest, i.e., the eyes, for analysis.
+
+4. Transfer Learning with Inceptionv3: For analyzing the eye region, the project employs transfer learning. Transfer learning is a technique where a pre-trained deep learning model is used as a starting point and fine-tuned for a specific task. In this case, the Inceptionv3 model, which is a popular convolutional neural network (CNN) architecture, is utilized. The model has been previously trained on a large dataset for general image classification tasks.
+
+5. Eye Status Classification: The Inceptionv3 model is adapted to classify the eye status as either open or closed. The captured eye region is preprocessed and fed into the model for prediction. Based on the predicted probabilities, the project determines whether the eyes are open or closed.
+
+6. Drowsiness Detection and Alarm: To identify drowsiness, the project keeps track of a "score" based on the duration of closed eyes. If the eyes remain closed for an extended period, indicating drowsiness, an audio alarm is triggered. The alarm serves as an alert to the individual, signaling the need to stay awake and focused.
+
+By combining the power of OpenCV for webcam access, Haar cascade classifiers for face and eye detection, and transfer learning with the Inceptionv3 model for eye status classification, this project provides a real-time drowsiness detection system using a webcam. It aims to enhance safety and prevent accidents by alerting individuals when signs of drowsiness are detected.
